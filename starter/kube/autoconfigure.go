@@ -26,7 +26,7 @@ func newConfiguration() *configuration {
 	return &configuration{}
 }
 
-type Config struct {
+type KubeConfig struct {
 	*string
 }
 
@@ -42,7 +42,7 @@ func init() {
 	app.AutoConfiguration(newConfiguration)
 }
 
-func (c *configuration) KubeRestConfig(kubeConfig *Config) *RestConfig {
+func (c *configuration) KubeRestConfig(kubeConfig *KubeConfig) *RestConfig {
 	retVal := new(RestConfig)
 	var err error
 	if c.Properties.KubeServiceHost == "" {
@@ -56,8 +56,8 @@ func (c *configuration) KubeRestConfig(kubeConfig *Config) *RestConfig {
 	return retVal
 }
 
-func (c *configuration) KubeConfig() *Config {
-	kc := new(Config)
+func (c *configuration) KubeConfig() *KubeConfig {
+	kc := new(KubeConfig)
 	if c.Properties.KubeServiceHost == "" {
 		log.Info("Kubernetes External Client Mode")
 		if home := homedir.HomeDir(); home != "" {
